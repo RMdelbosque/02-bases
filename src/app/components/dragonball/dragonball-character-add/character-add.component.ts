@@ -1,4 +1,4 @@
-import { Component, input, signal } from '@angular/core';
+import { Component, input, output, signal } from '@angular/core';
 import type { Character } from '../../../interfaces/character.interface';
 
 @Component({
@@ -9,6 +9,8 @@ export class CharacterAddComponent {
 
   name = signal('');
   power = signal(0);
+
+  newCharacter = output<Character>();
 
   addCharacter() {
     if (!this.name() || !this.power() || this.power() <= 0 ){
@@ -22,7 +24,7 @@ export class CharacterAddComponent {
     };
 
     // this.characters.update((list) => [... list, newCharacter]);
-    console.log({ newCharacter});
+    this.newCharacter.emit(newCharacter);
     this.resetFields();
   }
 
